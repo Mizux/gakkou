@@ -4,7 +4,7 @@ FROM alpine:edge AS env
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system dependencies
 ENV PATH=$PATH:/usr/local/bin
-apk add --no-cache \
+RUN apk add --no-cache \
  g++ clang make cmake \
  doxygen graphviz \
  qt5-qtbase-dev
@@ -31,7 +31,7 @@ FROM alpine:edge AS prod
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system dependencies
 ENV PATH=$PATH:/usr/local/bin
-apk add --no-cache qt5-qtbase
+RUN apk add --no-cache qt5-qtbase
 
 # Create app directory
 WORKDIR /home/app

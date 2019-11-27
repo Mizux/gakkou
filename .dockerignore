@@ -1,9 +1,14 @@
 # Project Files unneeded by docker
-.dockerignore
+.git
+.gitignore
 README.md
+Makefile
+docker/
+.dockerignore
+.travis.yml
 
-build
-cache
+build/
+cache/
 
 # Editor directories and files
 *.user
