@@ -1,9 +1,9 @@
 //! @file
 #pragma once
 
-#include <QWidget>
-#include <QSpinBox>
 #include <QLabel>
+#include <QSpinBox>
+#include <QWidget>
 
 //! @brief Mesh Viewer.
 class SumWidget : public QWidget {
@@ -25,12 +25,12 @@ class SumWidget : public QWidget {
 	SumWidget& operator=(const SumWidget&&) = delete;
 
 	public slots:
-		void refreshNumberOne();
-		void refreshNumberTwo();
-		void resetResult();
-		void showResult();
+	void refreshNumberOne();
+	void refreshNumberTwo();
+	void resetResult();
+	void showResult();
 
-	//signal:
+	// signal:
 
 	private:
 	//! @brief First number to sum.
