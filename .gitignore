@@ -1,3 +1,9 @@
+build/
+cache/
+
+# Editor directories and files
+*.user
+
 # Prerequisites
 *.d
 
