@@ -9,7 +9,7 @@ RUN apk add --no-cache \
  doxygen graphviz \
  qt5-qtbase-dev
 
-CMD [ "bash" ]
+CMD [ "/bin/sh" ]
 
 
 # Add the app src to our build env
@@ -23,7 +23,7 @@ RUN cmake -S. -Bbuild
 # CMake build
 RUN cmake --build build -v
 
-CMD [ "bash" ]
+CMD [ "/bin/sh" ]
 
 
 # Create a production image
@@ -38,4 +38,4 @@ WORKDIR /home/app
 # Copy app from devel to prod
 COPY --from=devel /home/app/install /home/app
 
-CMD [ "bash" ]
+CMD [ "bin/sh" ]
