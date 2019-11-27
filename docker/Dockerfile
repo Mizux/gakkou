@@ -18,6 +18,10 @@ FROM env AS devel
 WORKDIR /home/app
 # Bundle app source
 COPY . .
+# CMake configure
+RUN cmake -S. -Bbuild
+# CMake build
+RUN cmake --build build -v
 
 CMD [ "bash" ]
 

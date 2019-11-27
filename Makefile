@@ -17,10 +17,10 @@ help:
 	@echo -e "${BOLD}MAKE TARGETS${RESET}"
 	@echo -e "\t${BOLD}help${RESET}: display this help and exit."
 	@echo
-	@echo -e "\t${BOLD}build_env${RESET}: build a virtual env image."
+	@echo -e "\t${BOLD}env${RESET}: build a virtual env image."
 	@echo -e "\t${BOLD}run_env${RESET}: run a container using the virtual env image (debug purpose)."
 	@echo
-	@echo -e "\t${BOLD}build_devel${RESET}: build a webapp devel image."
+	@echo -e "\t${BOLD}devel${RESET}: build the app in a devel image."
 	@echo -e "\t${BOLD}run_devel${RESET}: run a container using the devel image (debug purpose)."
 	@echo
 	@echo -e "\t${BOLD}clean${RESET}: Remove log files and docker image."
@@ -64,8 +64,8 @@ DOCKER_RUN_CMD := docker run --rm --init --name ${IMAGE}
 # ENV #
 #######
 # Build the env image.
-.PHONY: build_env
-build_env: cache/docker_env.tar
+.PHONY: env
+env: cache/docker_env.tar
 cache/docker_env.tar: docker/Dockerfile
 	mkdir -p cache
 	@docker image rm -f ${IMAGE}:env 2>/dev/null
@@ -83,9 +83,9 @@ run_env: cache/docker_env.tar
 # DEVEL #
 #########
 # Build the devel image.
-.PHONY: build_devel
-build_devel: cache/docker_devel.tar
-cache/docker_devel.tar: docker/Dockerfile cache/docker_env.tar package.json index.js
+.PHONY: devel
+devel: cache/docker_devel.tar
+cache/docker_devel.tar: docker/Dockerfile cache/docker_env.tar CMakeLists.txt src
 	mkdir -p cache
 	@docker image rm -f ${IMAGE}:devel 2>/dev/null
 	${DOCKER_BUILD_CMD} --target=devel -t ${IMAGE}:devel -f $< .
@@ -94,7 +94,7 @@ cache/docker_devel.tar: docker/Dockerfile cache/docker_env.tar package.json inde
 
 # Run a container using the devel image.
 .PHONY: run_devel
-run_devel: cache/docker_devel.tar stop_devel
+run_devel: cache/docker_devel.tar
 	${DOCKER_RUN_CMD} -it ${IMAGE}:devel /bin/sh
 
 

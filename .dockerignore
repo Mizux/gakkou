@@ -1,0 +1,9 @@
+# Project Files unneeded by docker
+.dockerignore
+README.md
+
+build
+cache
+
+# Editor directories and files
+*.user
