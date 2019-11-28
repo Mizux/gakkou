@@ -10,13 +10,13 @@ install: true
 script:
   - >
     echo 'travis_fold:start:build_env'
-    && make build_env
+    && make env
     && echo 'travis_fold:end:build_env'
     || travis_terminate 1
 
   - >
     echo 'travis_fold:start:build_devel'
-    && make build_devel
+    && make devel
     && echo 'travis_fold:end:build_devel'
     || travis_terminate 1
 
