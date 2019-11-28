@@ -6,6 +6,7 @@ Makefile
 docker/
 .dockerignore
 .travis.yml
+.clang-format
 
 build/
 cache/

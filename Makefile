@@ -53,7 +53,10 @@ else
 DOCKER_BUILD_CMD := docker build
 endif
 
-DOCKER_RUN_CMD := docker run --rm --init --name ${IMAGE}
+DOCKER_RUN_CMD := docker run --rm --init \
+ --name ${IMAGE} --net=host \
+ --env="DISPLAY" \
+ --volume="${HOME}/.Xauthority:/root/.Xauthority:rw"
 
 # $* stem
 # $< first prerequist
@@ -96,7 +99,6 @@ cache/docker_devel.tar: docker/Dockerfile cache/docker_env.tar CMakeLists.txt sr
 .PHONY: run_devel
 run_devel: cache/docker_devel.tar
 	${DOCKER_RUN_CMD} -it ${IMAGE}:devel /bin/sh
-
 
 #########
 # CLEAN #

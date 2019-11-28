@@ -7,7 +7,7 @@ ENV PATH=$PATH:/usr/local/bin
 RUN apk add --no-cache \
  g++ clang make cmake \
  doxygen graphviz \
- qt5-qtbase-dev
+ qt5-qtbase-dev ttf-freefont
 
 CMD [ "/bin/sh" ]
 
@@ -31,7 +31,7 @@ FROM alpine:edge AS prod
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system dependencies
 ENV PATH=$PATH:/usr/local/bin
-RUN apk add --no-cache qt5-qtbase
+RUN apk add --no-cache qt5-qtbase ttf-freefont
 
 # Create app directory
 WORKDIR /home/app
