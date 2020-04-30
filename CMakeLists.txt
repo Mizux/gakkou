@@ -1,15 +1,19 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.14)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+
 project(Gakkou VERSION 0.1 LANGUAGES CXX)
+
+include(CTest)
+include(GNUInstallDirs)
 
 ##############################
 ##  COMPILATION PARAMETERS  ##
 ##############################
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 set(BUILD_SHARED_LIBS ON)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/usr/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/usr/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/usr/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_STANDARD 14)
@@ -22,7 +26,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 ##########################
 # Offer the user the choice of overriding the installation directories
 set(CMAKE_INSTALL_PREFIX install)
-set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib:$ORIGIN/")
+set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN/")
 
 ###########
 ##  DOC  ##
@@ -32,8 +36,9 @@ if(ENABLE_DOC)
   add_subdirectory(doc)
 endif()
 
-
-
+###########
+# Sum app #
+###########
 # Qt Setting
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -47,5 +52,35 @@ file(GLOB_RECURSE _QRCS "data/*.qrc")
 add_executable(sumApp ${_SRCS} ${_QRCS})
 target_link_libraries(sumApp Qt5::Core Qt5::Gui Qt5::Widgets)
 #target_link_libraries(sumApp Qt5::3DCore Qt5::3DRender Qt5::3DInput Qt5::3DExtras)
+add_executable(gakkou::sumApp ALIAS sumApp)
+# Install
+install(TARGETS sumApp
+  EXPORT ${PROJECT_NAME}Targets
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
 
-#install(TARGETS sumApp DESTINATION bin)
+
+# Install
+include(GNUInstallDirs)
+install(EXPORT ${PROJECT_NAME}Targets
+  NAMESPACE gakkou::
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Gakkou
+  COMPONENT Devel)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(cmake/GakkouConfig.cmake.in
+  "${PROJECT_BINARY_DIR}/GakkouConfig.cmake"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/Gakkou"
+  NO_SET_AND_CHECK_MACRO
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+write_basic_package_version_file(
+  "${PROJECT_BINARY_DIR}/GakkouConfigVersion.cmake"
+  COMPATIBILITY SameMajorVersion)
+install(
+  FILES
+  "${PROJECT_BINARY_DIR}/GakkouConfig.cmake"
+  "${PROJECT_BINARY_DIR}/GakkouConfigVersion.cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/Gakkou"
+  COMPONENT Devel)
