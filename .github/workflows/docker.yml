@@ -1,0 +1,23 @@
+name: Docker
+
+on: [push, pull_request]
+
+jobs:
+  Distros:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro: [alpine]
+      fail-fast: false
+    env:
+      DISTRO: ${{ matrix.distro }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build env image
+      run: make --directory=ci ${DISTRO}_env
+    - name: Build devel image
+      run: make --directory=ci ${DISTRO}_devel
+    - name: Build project
+      run: make --directory=ci ${DISTRO}_build
+    - name: Build prod Image
+      run: make --directory=ci ${DISTRO}_prod
