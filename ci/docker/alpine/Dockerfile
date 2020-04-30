@@ -3,39 +3,34 @@
 FROM alpine:edge AS env
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system dependencies
-ENV PATH=$PATH:/usr/local/bin
+ENV PATH=/usr/local/bin:$PATH
 RUN apk add --no-cache \
  g++ clang make cmake \
  doxygen graphviz \
  qt5-qtbase-dev ttf-freefont
-
 CMD [ "/bin/sh" ]
 
-
-# Add the app src to our build env
 FROM env AS devel
-# Create app directory
 WORKDIR /home/app
-# Bundle app source
 COPY . .
-# CMake configure
-RUN cmake -S. -Bbuild
-# CMake build
-RUN cmake --build build -v
 
-CMD [ "/bin/sh" ]
+FROM devel AS build
+RUN cmake --version
+RUN cmake -S. -Bbuild -DCMAKE_INSTALL_PREFIX=./install
+RUN cmake --build build --target all -v
+RUN cmake --build build --target install -v
 
+FROM build AS test
+RUN cmake --build build --target test
 
 # Create a production image
 FROM alpine:edge AS prod
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system dependencies
-ENV PATH=$PATH:/usr/local/bin
-RUN apk add --no-cache qt5-qtbase ttf-freefont
+RUN apk add --no-cache qt5-qtbase-x11 ttf-freefont
 
 # Create app directory
 WORKDIR /home/app
-# Copy app from devel to prod
-COPY --from=devel /home/app/install /home/app
+COPY --from=build /home/app/build/install .
 
-CMD [ "bin/sh" ]
+CMD [ "/bin/sh" ]
