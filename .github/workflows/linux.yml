@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Qt5
-      run: apt install -y qt5-default
+      run: sudo apt install -y qt5-default
     - uses: actions/checkout@v2
     - name: Configure
       run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
