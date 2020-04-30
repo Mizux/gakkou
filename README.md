@@ -13,7 +13,7 @@ First, setup a native development environment on various GNU/Linux distro
 or using the official [alpine:edge](https://hub.docker.com/_/alpine/) docker image.  
 
 You'll need:
-- **cmake >= 3.5**,
+- **cmake >= 3.14**,
 - **gcc** or **clang** (with C++14 support) and
 - **Qt >= 5**.
 
@@ -50,18 +50,20 @@ cmake --build build -v
 ## Step 4: Launch the app
 To run this app, you can use:
 ```sh
-./build/usr/bin/sumApp
+./build/bin/sumApp
 ```
 
 # CI: Makefile/Docker testing
-To test the build, there is a Makefile using the [alpine:edge](https://hub.docker.com/_/alpine/) docker image to test.
+To test the build, there is a [Makefile](ci/Makefile) using the [alpine:edge](https://hub.docker.com/_/alpine/) docker image to test.
 
 To get the help simply type:
 ```sh
-make
+make --directory=ci
 ```
 
 For example to build the app:
 ```sh
-make devel
+make --directory=ci alpine_build
 ```
+
+note: you can even run the app from alpine provided you have an `${HOME}/.Xauthority` file using the Make target `alpine_run`
