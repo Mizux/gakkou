@@ -6,34 +6,32 @@ project(Gakkou VERSION 0.1 LANGUAGES CXX)
 include(CTest)
 include(GNUInstallDirs)
 
-##############################
-##  COMPILATION PARAMETERS  ##
-##############################
-set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
-set(BUILD_SHARED_LIBS ON)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+# Force default build type to Release
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
+    "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
+    FORCE)
+endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
-##########################
-##  INSTALL PARAMETERS  ##
-##########################
-# Offer the user the choice of overriding the installation directories
-set(CMAKE_INSTALL_PREFIX install)
-set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN/")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 
-###########
-##  DOC  ##
-###########
-option(ENABLE_DOC "Compile doxygen documentation" OFF)
-if(ENABLE_DOC)
-  add_subdirectory(doc)
+if(UNIX)
+  option(BUILD_SHARED_LIBS "Build shared libraries(.so or .dylib)." ON)
+	if(APPLE)
+		set(CMAKE_INSTALL_RPATH "@loader_path;@loader_path/../${CMAKE_INSTALL_LIBDIR}")
+	else()
+		set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
+	endif()
+else()
+  # only support for static build on Windows.
+  set(BUILD_SHARED_LIBS OFF)
 endif()
 
 ###########
