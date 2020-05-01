@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: [alpine]
+        distro: [alpine, archlinux, ubuntu]
       fail-fast: false
     env:
       DISTRO: ${{ matrix.distro }}
