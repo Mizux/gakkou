@@ -32,6 +32,8 @@ help:
 	@echo
 	@echo -e "\t${BOLD}<distro>${RESET}:"
 	@echo -e "\t\t${BOLD}alpine${RESET} (edge)"
+	@echo -e "\t\t${BOLD}archlinux${RESET} (latest)"
+	@echo -e "\t\t${BOLD}ubuntu${RESET} (rolling)"
 	@echo -e "\te.g. 'make alpine_test'"
 	@echo
 	@echo -e "\t${BOLD}clean${RESET}: Remove cache and ALL docker images."
@@ -71,7 +73,7 @@ DOCKER_RUN_CMD := docker run --rm --init \
  --volume="${HOME}/.Xauthority:/root/.Xauthority:rw"
 
 # Currently supported distro
-DISTROS = alpine archlinux centos debian fedora opensuse ubuntu
+DISTROS = alpine archlinux ubuntu
 
 # $* stem
 # $< first prerequist
