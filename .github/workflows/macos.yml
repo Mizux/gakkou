@@ -8,12 +8,14 @@ jobs:
     runs-on: macos-latest
     steps:
     - name: Install Qt5
-      run: brew install qt
+      run: |
+        brew install qt;
+        echo "::add-path::/usr/local/opt/qt/bin"
     - uses: actions/checkout@v2
     - name: Configure
       run: cmake -S. -Bbuild -G "Xcode" -DCMAKE_CONFIGURATION_TYPES=Release
     - name: Build
-      run: cmake --build build --config Release --target all -v
+      run: cmake --build build --config Release -v
     - name: Test
       run: cmake --build build --config Release --target test -v
     - name: Install
