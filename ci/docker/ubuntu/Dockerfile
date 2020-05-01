@@ -28,22 +28,23 @@ FROM devel AS build
 RUN cmake -version
 RUN cmake -S. -Bbuild
 RUN cmake --build build --target all -v
-RUN cmake --build build --target install
+RUN cmake --build build --target install -v -- DESTDIR=install
 
 FROM build AS test
 RUN cmake --build build --target test
 
-FROM ubuntu:rolling AS env
+# Create a production image
+FROM ubuntu:rolling AS prod
 LABEL maintainer="mizux.dev@gmail.com"
-# Install system dependencies
+RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
+&& echo Europe/Paris > /etc/timezone
 RUN apt-get update -qq \
-&& apt-get install -yq \
-qt5-default \
+&& apt-get install -yq qt5-default \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Create app directory
 WORKDIR /home/app
-COPY --from=build /home/app/build/install .
+COPY --from=build /home/app/build/install/usr/local/ .
 
 CMD [ "/bin/sh" ]
