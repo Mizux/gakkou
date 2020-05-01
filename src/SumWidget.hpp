@@ -1,6 +1,7 @@
 //! @file
 #pragma once
 
+#include <random>
 #include <QLabel>
 #include <QSpinBox>
 #include <QWidget>
@@ -39,6 +40,9 @@ class SumWidget : public QWidget {
 	QSpinBox* _numberTwo;
 	//! @brief Display the rsult.
 	QLabel* _result;
+
+	std::mt19937 _generator; //Standard mersenne_twister_engine seeded with rd()
+	std::uniform_int_distribution<> _distribution;
 
 	//! @brief Internal function to setup the widget.
 	void _setupWidget();

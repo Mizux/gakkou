@@ -5,25 +5,25 @@
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QRandomGenerator>
 #include <QSpacerItem>
 #include <QVBoxLayout>
 
 SumWidget::SumWidget(QWidget* parent)
-  : QWidget(parent) {
+  : QWidget(parent), _generator(), _distribution(1, 10) {
+		std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    _generator.seed(rd());
+
 	_setupWidget();
 }
 
 void
 SumWidget::refreshNumberOne() {
-	static QRandomGenerator prng(1234);
-	_numberOne->setValue(prng.generate() % 10u + 1u);
+	_numberOne->setValue(_distribution(_generator));
 }
 
 void
 SumWidget::refreshNumberTwo() {
-	static QRandomGenerator prng(5678);
-	_numberTwo->setValue(prng.generate() % 10u + 1u);
+	_numberTwo->setValue(_distribution(_generator));
 }
 
 void
