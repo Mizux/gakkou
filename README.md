@@ -1,3 +1,8 @@
+![Docker](https://github.com/Mizux/gakkou/workflows/Docker/badge.svg)
+![Linux](https://github.com/Mizux/gakkou/workflows/Linux/badge.svg)
+![MacOS](https://github.com/Mizux/gakkou/workflows/MacOS/badge.svg)
+![Windows](https://github.com/Mizux/gakkou/workflows/Windows/badge.svg)
+
 # Introduction
 A simple app using CMake/C++/Qt.
 
