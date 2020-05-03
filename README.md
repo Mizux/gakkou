@@ -1,74 +1,58 @@
-![Docker](https://github.com/Mizux/gakkou/workflows/Docker/badge.svg)
-![Linux](https://github.com/Mizux/gakkou/workflows/Linux/badge.svg)
-![MacOS](https://github.com/Mizux/gakkou/workflows/MacOS/badge.svg)
-![Windows](https://github.com/Mizux/gakkou/workflows/Windows/badge.svg)
+Github-CI:
+[![Build Status][github_docker_status]][github_docker_link]
+[![Build Status][github_linux_status]][github_linux_link]
+[![Build Status][github_macos_status]][github_macos_link]
+[![Build Status][github_windows_status]][github_windows_link]
+
+[github_docker_status]: https://github.com/Mizux/gakkou/workflows/Docker/badge.svg
+[github_docker_link]: https://github.com/Mizux/gakkou/actions?query=workflow%3ADocker
+
+[github_linux_status]: https://github.com/Mizux/gakkou/workflows/Linux/badge.svg
+[github_linux_link]: https://github.com/Mizux/gakkou/actions?query=workflow%3ALinux
+
+[github_macos_status]: https://github.com/Mizux/gakkou/workflows/MacOS/badge.svg
+[github_macos_link]: https://github.com/Mizux/gakkou/actions?query=workflow%3AMacOS
+
+[github_windows_status]: https://github.com/Mizux/gakkou/workflows/Windows/badge.svg
+[github_windows_link]: https://github.com/Mizux/gakkou/actions?query=workflow%3AWindows
 
 # Introduction
-A simple app using CMake/C++/Qt.
+<nav for="project"> |
+<a href="#codemap">Codemap</a> |
+<a href="#build">Build</a> |
+<a href="#test">Test</a> |
+<a href="ci/README.md">CI</a> |
+<a href="#license">License</a> |
+</nav>
+A simple app using [CMake](https://cmake.org/), C++ and Qt5.
 
-# Project directory layout
+# [Project directory layout](#codemap)
 Thus the project layout is as follow:
 
-* [Makefile](Makefile) Script used to run CI/local test.
+* [CMakeLists.txt](CMakeLists.txt) Top-level for [CMake](https://cmake.org/cmake/help/latest/) based build.
+* [cmake](cmake) Subsidiary CMake files.
 
-# Project Step
+* [ci](ci) Root directory for continuous integration.
 
-## Step 1: Environment Setup
-First, setup a native development environment on various GNU/Linux distro
-or using the official [alpine:edge](https://hub.docker.com/_/alpine/) docker image.  
+* [src](src) Source directory of the Application.
 
-You'll need:
-- **cmake >= 3.14**,
-- **gcc** or **clang** (with C++14 support) and
-- **Qt >= 5**.
-
-## Step 2: Configure
-
-Simply run the following command and fill the form:
+# [C++ Project Build](#build)
+To build the C++ project, as usual:
 ```sh
-cmake -S. -Bbuild
+cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release --target all -v
 ```
 
-note: need cmake >= 3.13.5 to use `-S` otherwise use the hidden option `-H` instead.
+note: replace `all` by `ALL_BUILD` for non makefile generators
 
-You should have something like this
+# [Test C++ Project](#test)
+To test the C++ project, as usual:
 ```sh
-$ cmake -S. -Bbuild
--- The CXX compiler identification is GNU 9.2.0
--- Check for working CXX compiler: /usr/bin/c++
--- Check for working CXX compiler: /usr/bin/c++ -- works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Configuring done
--- Generating done
--- Build files have been written to: /.../build
+cmake --build build --config Release --target test -v
 ```
 
-## Step 3: Build
-Simply use:
-```sh
-cmake --build build -v
-```
+note: replace `test` by `RUN_TESTS` for non makefile generators
 
-## Step 4: Launch the app
-To run this app, you can use:
-```sh
-./build/bin/sumApp
-```
+# [License](#license)
 
-# CI: Makefile/Docker testing
-To test the build, there is a [Makefile](ci/Makefile) using the [alpine:edge](https://hub.docker.com/_/alpine/) docker image to test.
-
-To get the help simply type:
-```sh
-make --directory=ci
-```
-
-For example to build the app:
-```sh
-make --directory=ci alpine_build
-```
-
-note: you can even run the app from alpine provided you have an `${HOME}/.Xauthority` file using the Make target `alpine_run`
+Apache 2. See the LICENSE file for details.
