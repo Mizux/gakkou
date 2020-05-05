@@ -19,14 +19,15 @@ Github-CI:
 # Introduction
 <nav for="project"> |
 <a href="#codemap">Codemap</a> |
-<a href="#build">Build</a> |
-<a href="#test">Test</a> |
+<a href="#build-project">Build</a> |
+<a href="#test-project">Test</a> |
+<a href="#install-project">Install</a> |
 <a href="ci/README.md">CI</a> |
 <a href="#license">License</a> |
 </nav>
 A simple app using [CMake](https://cmake.org/), C++ and Qt5.
 
-# [Project directory layout](#codemap)
+# Codemap
 Thus the project layout is as follow:
 
 * [CMakeLists.txt](CMakeLists.txt) Top-level for [CMake](https://cmake.org/cmake/help/latest/) based build.
@@ -36,7 +37,7 @@ Thus the project layout is as follow:
 
 * [src](src) Source directory of the Application.
 
-# [C++ Project Build](#build)
+# Build Project
 To build the C++ project, as usual:
 ```sh
 cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
@@ -45,7 +46,7 @@ cmake --build build --config Release --target all -v
 
 note: replace `all` by `ALL_BUILD` for non makefile generators
 
-# [Test C++ Project](#test)
+# Test Project
 To test the C++ project, as usual:
 ```sh
 cmake --build build --config Release --target test -v
@@ -53,6 +54,13 @@ cmake --build build --config Release --target test -v
 
 note: replace `test` by `RUN_TESTS` for non makefile generators
 
+# Install Project
+To install the C++ project, as usual:
+```sh
+cmake --build build --config Release --target install -v
+```
+
+note: replace `install` by `INSTALL` for non makefile/xcode generators.
 # [License](#license)
 
 Apache 2. See the LICENSE file for details.
