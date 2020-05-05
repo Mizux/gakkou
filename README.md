@@ -61,6 +61,6 @@ cmake --build build --config Release --target install -v
 ```
 
 note: replace `install` by `INSTALL` for non makefile/xcode generators.
-# [License](#license)
+# License
 
 Apache 2. See the LICENSE file for details.
