@@ -25,6 +25,7 @@ Github-CI:
 <a href="ci/README.md">CI</a> |
 <a href="#license">License</a> |
 </nav>
+
 A simple app using [CMake](https://cmake.org/), C++ and Qt5.
 
 # Codemap
