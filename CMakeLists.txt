@@ -24,11 +24,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_B
 
 if(UNIX)
   option(BUILD_SHARED_LIBS "Build shared libraries(.so or .dylib)." ON)
-	if(APPLE)
-		set(CMAKE_INSTALL_RPATH "@loader_path;@loader_path/../${CMAKE_INSTALL_LIBDIR}")
-	else()
-		set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
-	endif()
+  if(APPLE)
+    set(CMAKE_INSTALL_RPATH "@loader_path;@loader_path/../${CMAKE_INSTALL_LIBDIR}")
+  else()
+    set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
+  endif()
 else()
   # only support for static build on Windows.
   set(BUILD_SHARED_LIBS OFF)
