@@ -9,19 +9,21 @@ install: true
 # `travis_terminate 1`
 script:
   - >
-    echo 'travis_fold:start:build_env'
+    cd ci
     && make env
-    && echo 'travis_fold:end:build_env'
     || travis_terminate 1
 
   - >
-    echo 'travis_fold:start:build_devel'
+    cd ci
     && make devel
-    && echo 'travis_fold:end:build_devel'
     || travis_terminate 1
 
   - >
-    echo 'travis_fold:start:test_devel'
-    && make test_devel
-    && echo 'travis_fold:end:test_devel'
+    cd ci
+    && make build
+    || travis_terminate 1
+
+  - >
+    cd ci
+    && make prod
     || travis_terminate 1
