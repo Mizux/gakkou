@@ -1,6 +1,6 @@
 # Create a virtual environment with all tools installed
 # ref: https://hub.docker.com/_/archlinux/
-FROM archlinux/base AS env
+FROM archlinux:latest AS env
 LABEL maintainer="mizux.dev@gmail.com"
 # Install system build dependencies
 ENV PATH=/usr/local/bin:$PATH
@@ -23,7 +23,7 @@ FROM build AS test
 RUN cmake --build build --target test
 
 # Create a production image
-FROM archlinux/base AS prod
+FROM archlinux:latest AS prod
 LABEL maintainer="mizux.dev@gmail.com"
 RUN pacman -Syu --noconfirm qt5 ttf-dejavu
 
