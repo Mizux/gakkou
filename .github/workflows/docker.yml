@@ -19,5 +19,7 @@ jobs:
       run: make --directory=ci ${DISTRO}_devel
     - name: Build project
       run: make --directory=ci ${DISTRO}_build
+    - name: Test project
+      run: make --directory=ci ${DISTRO}_test
     - name: Build prod Image
       run: make --directory=ci ${DISTRO}_prod

@@ -27,6 +27,7 @@ help:
 	@echo -e "\t\t${BOLD}env${RESET}"
 	@echo -e "\t\t${BOLD}devel${RESET}"
 	@echo -e "\t\t${BOLD}build${RESET}"
+	@echo -e "\t\t${BOLD}test${RESET}"
 	@echo -e "\t\t${BOLD}prod${RESET}"
 	@echo -e "\t\t${BOLD}run${RESET}"
 	@echo
@@ -79,7 +80,7 @@ DISTROS = alpine archlinux ubuntu
 # $< first prerequist
 # $@ target name
 
-STAGES = env devel build prod
+STAGES = env devel build test prod
 define make-stage-target
 targets_$1 = $(addsuffix _$1, $(DISTROS))
 .PHONY: $1 $(targets_$1)
