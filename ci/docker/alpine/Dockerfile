@@ -8,7 +8,6 @@ RUN apk add --no-cache \
  g++ clang make cmake \
  doxygen graphviz \
  qt5-qtbase-dev ttf-freefont
-CMD [ "/bin/sh" ]
 
 FROM env AS devel
 WORKDIR /home/app
@@ -31,5 +30,3 @@ RUN apk add --no-cache qt5-qtbase-x11 ttf-freefont
 # Create app directory
 WORKDIR /home/app
 COPY --from=build /home/app/build/install/home/app/install/ .
-
-CMD [ "/bin/sh" ]

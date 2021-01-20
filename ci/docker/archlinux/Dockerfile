@@ -7,7 +7,6 @@ ENV PATH=/usr/local/bin:$PATH
 RUN pacman -Syu --noconfirm \
 git base-devel cmake \
 qt5 ttf-dejavu
-CMD [ "/bin/sh" ]
 
 FROM env AS devel
 WORKDIR /home/app
@@ -30,5 +29,3 @@ RUN pacman -Syu --noconfirm qt5 ttf-dejavu
 # Create app directory
 WORKDIR /home/app
 COPY --from=build /home/app/build/install/usr/local/ .
-
-CMD [ "/bin/sh" ]

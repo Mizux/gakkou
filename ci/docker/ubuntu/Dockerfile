@@ -13,6 +13,7 @@ git wget libssl-dev build-essential \
 qt5-default \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Install CMake 3.19.2
 RUN wget "https://cmake.org/files/v3.19/cmake-3.19.2-Linux-x86_64.sh" \
 && chmod a+x cmake-3.19.2-Linux-x86_64.sh \
