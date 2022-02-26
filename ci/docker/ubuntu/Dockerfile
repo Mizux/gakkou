@@ -10,7 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 RUN apt update -qq \
 && apt install -yq \
 git wget libssl-dev build-essential \
-qt5-default \
+qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
