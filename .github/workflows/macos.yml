@@ -9,8 +9,8 @@ jobs:
     steps:
     - name: Install Qt5
       run: |
-        brew install qt;
-        echo "/usr/local/opt/qt/bin" >> $GITHUB_PATH
+        brew install qt@5;
+        echo "/usr/local/opt/qt@5/bin" >> $GITHUB_PATH
     - uses: actions/checkout@v3
     - name: Configure
       run: cmake -S. -Bbuild -G "Xcode" -DCMAKE_CONFIGURATION_TYPES=Release
