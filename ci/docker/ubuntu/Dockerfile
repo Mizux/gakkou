@@ -32,7 +32,7 @@ RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 && echo Europe/Paris > /etc/timezone
 
 RUN apt-get update -qq \
-&& apt-get install -yq xcb qtbase5-dev qt5dxcb-plugin \
+&& apt-get install -yq qtbase5-dev \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
