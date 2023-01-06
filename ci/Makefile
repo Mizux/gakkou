@@ -71,6 +71,7 @@ endif
 DOCKER_RUN_CMD := docker run --rm --init \
  --net=host \
  --env="DISPLAY" \
+ --env="XDG_RUNTIME_DIR" \
  --volume="${HOME}/.Xauthority:/root/.Xauthority:rw"
 
 # Currently supported distro
