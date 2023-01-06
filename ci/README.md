@@ -39,3 +39,17 @@ From [alpine:latest](https://hub.docker.com/r/alpine/)
 * [graphviz](https://pkgs.alpinelinux.org/package/edge/main/x86_64/graphviz)
 * [qt5-qtbase-dev](https://pkgs.alpinelinux.org/package/edge/community/x86_64/qt5-qtbase-dev)
 
+# Troubleshooting
+
+Error:
+
+```
+Authorization required, but no authorization protocol specified
+```
+
+Solution:
+
+```sh
+xhost + local:
+```
+
