@@ -28,11 +28,11 @@ RUN cmake --build build --target test
 
 # Create a production image
 FROM ubuntu:latest AS prod
-LABEL maintainer="mizux.dev@gmail.com"
 RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 && echo Europe/Paris > /etc/timezone
+
 RUN apt-get update -qq \
-&& apt-get install -yq qtbase5-dev \
+&& apt-get install -yq xcb qtbase5-dev qt5dxcb-plugin \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
