@@ -63,9 +63,9 @@ SUFFIXES =
 IMAGE := ${PROJECT}
 
 ifdef NOCACHE
-DOCKER_BUILD_CMD := docker build --no-cache
+DOCKER_BUILD_CMD := docker build --platform linux/amd64 --no-cache
 else
-DOCKER_BUILD_CMD := docker build
+DOCKER_BUILD_CMD := docker build --platform linux/amd64
 endif
 
 DOCKER_RUN_CMD := docker run --rm --init \
