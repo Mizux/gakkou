@@ -41,15 +41,15 @@ endif()
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-find_package(Qt5  REQUIRED COMPONENTS Core Gui Widgets)
-#find_package(Qt5  REQUIRED COMPONENTS 3DRender 3DCore 3DInput 3DExtras)
+find_package(Qt6  REQUIRED COMPONENTS Core Gui Widgets)
+#find_package(Qt6  REQUIRED COMPONENTS 3DRender 3DCore 3DInput 3DExtras)
 
 file(GLOB_RECURSE _SRCS "src/*.[hc]pp")
 file(GLOB_RECURSE _QRCS "data/*.qrc")
 
 add_executable(sumApp ${_SRCS} ${_QRCS})
-target_link_libraries(sumApp Qt5::Core Qt5::Gui Qt5::Widgets)
-#target_link_libraries(sumApp Qt5::3DCore Qt5::3DRender Qt5::3DInput Qt5::3DExtras)
+target_link_libraries(sumApp Qt6::Core Qt6::Gui Qt6::Widgets)
+#target_link_libraries(sumApp Qt6::3DCore Qt6::3DRender Qt6::3DInput Qt6::3DExtras)
 add_executable(gakkou::sumApp ALIAS sumApp)
 # Install
 install(TARGETS sumApp

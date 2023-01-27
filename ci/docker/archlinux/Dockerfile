@@ -5,7 +5,7 @@ FROM archlinux:latest AS env
 ENV PATH=/usr/local/bin:$PATH
 RUN pacman -Syu --noconfirm \
 git base-devel cmake \
-qt5 ttf-dejavu
+qt6 ttf-dejavu
 
 FROM env AS devel
 WORKDIR /home/app
@@ -23,7 +23,7 @@ RUN cmake --build build --target test
 # Create a production image
 FROM archlinux:latest AS prod
 LABEL maintainer="mizux.dev@gmail.com"
-RUN pacman -Syu --noconfirm qt5 ttf-dejavu
+RUN pacman -Syu --noconfirm qt6 ttf-dejavu
 # Create app directory
 WORKDIR /home/app
 COPY --from=build /usr/local/ .

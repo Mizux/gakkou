@@ -7,10 +7,10 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Qt5
+    - name: Install Qt6
       run: |
         sudo apt update -q
-        sudo apt install -yq qtbase5-dev
+        sudo apt install -yq qt6-base-dev libgl-dev
     - uses: actions/checkout@v3
     - name: Configure
       run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release

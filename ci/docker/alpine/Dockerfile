@@ -6,7 +6,7 @@ ENV PATH=/usr/local/bin:$PATH
 RUN apk add --no-cache \
  git g++ clang make cmake \
  doxygen graphviz \
- qt5-qtbase-dev ttf-freefont
+ qt6-qtbase-dev ttf-freefont
 
 FROM env AS devel
 WORKDIR /home/project
@@ -23,7 +23,9 @@ RUN cmake --build build --target test
 
 # Create a production image
 FROM alpine:edge AS prod
-RUN apk add --no-cache qt5-qtbase-x11 ttf-freefont
+RUN apk add --no-cache qt6-qtbase-dev ttf-freefont
+RUN apk add --no-cache libxcb xcb-util
 # Create app directory
 WORKDIR /home/app
 COPY --from=build /usr/local/ .
+ENV QT_DEBUG_PLUGINS=1

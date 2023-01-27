@@ -7,10 +7,13 @@ RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 && echo Europe/Paris > /etc/timezone
 
 # qt6-base-dev
-# qtbase5-dev
+# jammy(22.04): need missing libgl-dev
+# kinetic(22.10): libgl-dev already a deps of the package
 RUN apt update -qq \
 && apt install -yq \
-git wget libssl-dev build-essential cmake qtbase5-dev \
+ git wget libssl-dev \
+ build-essential cmake \
+ qt6-base-dev libgl-dev \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -33,7 +36,7 @@ RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 && echo Europe/Paris > /etc/timezone
 
 RUN apt-get update -qq \
-&& apt-get install -yq qtbase5-dev \
+&& apt-get install -yq qt6-base-dev libgl-dev \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
