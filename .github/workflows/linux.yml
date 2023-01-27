@@ -10,7 +10,7 @@ jobs:
     - name: Install Qt5
       run: |
         sudo apt update -q
-        sudo apt install -yq qt5-default
+        sudo apt install -yq qtbase5-dev
     - uses: actions/checkout@v3
     - name: Configure
       run: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
