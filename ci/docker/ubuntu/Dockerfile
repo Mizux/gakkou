@@ -6,10 +6,11 @@ ENV PATH=/usr/local/bin:$PATH
 RUN ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime \
 && echo Europe/Paris > /etc/timezone
 
+# qt6-base-dev
+# qtbase5-dev
 RUN apt update -qq \
 && apt install -yq \
-git wget libssl-dev build-essential cmake \
-qtbase5-dev qtbase5-dev-tools qtchooser qt5-qmake \
+git wget libssl-dev build-essential cmake qtbase5-dev \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
