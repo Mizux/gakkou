@@ -68,8 +68,11 @@ else
 DOCKER_BUILD_CMD := docker build --platform linux/amd64
 endif
 
+ID_U := $(shell id -u)
+ID_G := $(shell id -g)
+
 DOCKER_RUN_CMD := docker run --rm --init \
- --net=host \
+ --user $(ID_U):$(ID_G) \
  --env="DISPLAY" \
  --env="XDG_RUNTIME_DIR" \
  --volume="${HOME}/.Xauthority:/root/.Xauthority:rw"
