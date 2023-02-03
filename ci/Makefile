@@ -83,6 +83,8 @@ DISTROS = alpine archlinux ubuntu
 
 STAGES = env devel build test prod
 define make-stage-target
+#$$(info STAGE: $1)
+#$$(info Create targets: $1 $(addsuffix _$1, $(DISTROS)).)
 targets_$1 = $(addsuffix _$1, $(DISTROS))
 .PHONY: $1 $(targets_$1)
 $1: $$(targets_$1)
@@ -90,6 +92,7 @@ $$(targets_$1): %_$1: docker/%/Dockerfile
 	#@docker image rm -f ${IMAGE}:$$*_$1 2>/dev/null
 	${DOCKER_BUILD_CMD} --target=$1 --tag ${IMAGE}:$$*_$1 -f $$< ..
 
+#$$(info Create targets: save_$1 $(addprefix save_, $(addsuffix _$1, $(DISTROS))) (debug).)
 save_targets_$1 = $(addprefix save_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: save_$1 $(save_targets_$1)
 save_$1: $$(save_targets_$1)
@@ -99,11 +102,13 @@ cache/%/docker_$1.tar: %_$1
 	mkdir -p cache/$$*
 	docker save ${IMAGE}:$$*_$1 -o $$@
 
+#$$(info Create targets: $(addprefix sh_, $(addsuffix _$1, $(DISTROS))) (debug).)
 sh_targets_$1 = $(addprefix sh_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: $(sh_targets_$1)
 $$(sh_targets_$1): sh_%_$1: %_$1
 	${DOCKER_RUN_CMD} -it --name ${IMAGE}_$$*_$1 ${IMAGE}:$$*_$1
 
+#$$(info Create targets: $(addprefix clean_, $(addsuffix _$1, $(DISTROS))).)
 clean_targets_$1 = $(addprefix clean_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: clean_$1 $(clean_targets_$1)
 clean_$1: $$(clean_targets_$1)
