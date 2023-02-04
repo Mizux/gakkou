@@ -68,10 +68,6 @@ else
 DOCKER_BUILD_CMD := docker build --platform linux/amd64
 endif
 
-ID_U := $(shell id -u)
-ID_G := $(shell id -g)
-# --user $(ID_U):$(ID_G) \
-
 DOCKER_RUN_CMD := docker run --rm --init \
  --net=host \
  --env="DISPLAY" \
