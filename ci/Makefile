@@ -70,9 +70,10 @@ endif
 
 ID_U := $(shell id -u)
 ID_G := $(shell id -g)
+# --user $(ID_U):$(ID_G) \
 
 DOCKER_RUN_CMD := docker run --rm --init \
- --user $(ID_U):$(ID_G) \
+ --net=host \
  --env="DISPLAY" \
  --env="XDG_RUNTIME_DIR" \
  --volume="${HOME}/.Xauthority:/root/.Xauthority:rw"
