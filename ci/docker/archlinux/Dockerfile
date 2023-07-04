@@ -1,6 +1,7 @@
 # Create a virtual environment with all tools installed
 # ref: https://hub.docker.com/_/archlinux/
 FROM archlinux:latest AS env
+
 # Install system build dependencies
 ENV PATH=/usr/local/bin:$PATH
 RUN pacman -Syu --noconfirm \
@@ -22,7 +23,7 @@ RUN cmake --build build --target test
 
 # Create a production image
 FROM archlinux:latest AS prod
-LABEL maintainer="mizux.dev@gmail.com"
+
 RUN pacman -Syu --noconfirm qt6 ttf-dejavu
 # Create app directory
 WORKDIR /home/app
